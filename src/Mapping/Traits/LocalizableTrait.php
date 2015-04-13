@@ -28,7 +28,7 @@ trait LocalizableTrait
      * @Form\Options({
      *      "empty_option":"Select language",
      *      "label":"Select language",
-     *      "translator_text_domain":"CmsLocale",
+     *      "text_domain":"CmsLocale",
      *      "target_class":"CmsLocale\Mapping\LocaleInterface",
      *      "property":"name",
      *      "find_method":{
