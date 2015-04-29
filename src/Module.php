@@ -27,6 +27,7 @@ class Module implements
                 __DIR__ . '/../autoload_classmap.php',
             ],
             'Zend\Loader\StandardAutoloader' => [
+                'fallback_autoloader' => true,
                 'namespaces' => [
                     __NAMESPACE__ => __DIR__,
                 ],
