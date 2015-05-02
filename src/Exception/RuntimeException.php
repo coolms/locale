@@ -8,12 +8,12 @@
  * @author    Dmitry Popov <d.popov@altgraphic.com>
  */
 
-namespace CmsLocale\Mapping;
+namespace CmsLocale\Exception;
 
-use CmsCommon\Mapping\Common\StateableInterface as BaseStateableInterface;
-
-interface StateableInterface extends BaseStateableInterface
+/**
+ * Runtime exception for CmsLocale
+ */
+class RuntimeException extends \RuntimeException implements ExceptionInterface
 {
-    const LOCALE_NOT_ACTIVE = 0;
-    const LOCALE_ACTIVE     = 1;
+    
 }

@@ -120,6 +120,7 @@ class CookieStrategy extends AbstractStrategy
         if(!preg_match("/^(?!\\$)[!-~]+$/", $cookieName)) {
             throw new Exception\InvalidArgumentException($cookieName . " is not a vaild cookie name.");
         }
+
         $this->cookieName = $cookieName;
     }
 }

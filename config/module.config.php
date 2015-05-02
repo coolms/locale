@@ -12,36 +12,15 @@ namespace CmsLocale;
 
 return [
     'controllers' => [
+        'aliaeses' => [
+            'CmsLocale\Controller\Admin' => 'CmsLocale\Mvc\Controller\AdminController',
+        ],
         'invokables' => [
-            'CmsLocale\Controller\Index' => 'CmsLocale\Controller\IndexController',
-        ],
-    ],
-    'doctrine' => [
-        'driver' => [
-            __NAMESPACE__ . 'Driver' => [
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-                'cache' => 'array',
-                'paths' => [
-                    __DIR__ . '/../src/Entity',
-                ],
-            ],
-            'orm_default' => [
-                'drivers' => [
-                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . 'Driver',
-                ],
-            ],
-        ],
-        'entity_resolver' => [
-            'orm_default' => [
-                'resolvers' => [
-                    'CmsLocale\Mapping\LocaleInterface' => 'CmsLocale\Entity\Locale',
-                ],
-            ],
+            'CmsLocale\Mvc\Controller\AdminController' => 'CmsLocale\Mvc\Controller\AdminController',
         ],
     ],
     'listeners' => [
-        'CmsLocale\EventListener\DefaultLocaleListener'
-            => 'CmsLocale\EventListener\DefaultLocaleListener',
+        'CmsLocale\Event\DefaultLocaleListener' => 'CmsLocale\Event\DefaultLocaleListener',
     ],
     'router' => [
         'routes' => [
@@ -69,26 +48,25 @@ return [
     ],
     'service_manager' => [
         'aliases' => [
-            'CmsLocale\Options\ModuleOptions' => 'CmsLocale\Options\ModuleOptionsInterface',
+            'CmsLocale\Options\ModuleOptionsInterface' => 'CmsLocale\Options\ModuleOptions',
         ],
         'invokables' => [
-            'CmsLocale\EventListener\DefaultLocaleListener'
-                => 'CmsLocale\EventListener\DefaultLocaleListener',
+            'CmsLocale\Event\DefaultLocaleListener' => 'CmsLocale\Event\DefaultLocaleListener',
             'CmsLocale\Locale\Strategy\StrategyPluginManager'
                 => 'CmsLocale\Locale\Strategy\StrategyPluginManager',
         ],
         'factories'  => [
-            'CmsLocale\Locale\Detector'                 => 'CmsLocale\Factory\DetectorFactory',
-            'CmsLocale\Options\ModuleOptionsInterface'  => 'CmsLocale\Factory\ModuleOptionsFactory',
+            'CmsLocale\Locale\Detector' => 'CmsLocale\Factory\DetectorFactory',
+            'CmsLocale\Options\ModuleOptions' => 'CmsLocale\Factory\ModuleOptionsFactory',
         ],
     ],
     'translator' => [
         'translation_file_patterns' => [
             [
-                'type'          => 'gettext',
-                'base_dir'      => __DIR__ . '/../language',
-                'pattern'       => '%s.mo',
-                'text_domain'   => __NAMESPACE__,
+                'type' => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern' => '%s.mo',
+                'text_domain' => __NAMESPACE__,
             ],
         ],
     ],

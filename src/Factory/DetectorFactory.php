@@ -26,8 +26,8 @@ class DetectorFactory implements FactoryInterface
         /* @var $options \CmsLocale\Options\ModuleOptionsInterface */
         $options = $serviceLocator->get('CmsLocale\\Options\\ModuleOptions');
 
-        $detector       = new Detector;
-        $eventManager   = $serviceLocator->get('EventManager');
+        $detector = new Detector;
+        $eventManager = $serviceLocator->get('EventManager');
         $detector->setEventManager($eventManager);
 
         $this->addAdapters($detector, $options->getStrategies(), $serviceLocator);
@@ -55,11 +55,11 @@ class DetectorFactory implements FactoryInterface
 
         foreach ($strategies as $strategy) {
             if (is_string($strategy)) {
-                $class  = $plugins->get($strategy);
+                $class = $plugins->get($strategy);
                 $detector->addStrategy($class);
             } elseif (is_array($strategy)) {
-                $name   = $strategy['name'];
-                $class  = $plugins->get($name);
+                $name = $strategy['name'];
+                $class = $plugins->get($name);
 
                 if (array_key_exists('options', $strategy) && method_exists($class, 'setOptions')) {
                     $class->setOptions($strategy['options']);

@@ -29,7 +29,7 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface
     /**
      * @var array|string
      */
-    protected $locales = [];
+    protected $locales = ['en', 'en-US', 'en-GB'];
 
     /**
      * @var array|string

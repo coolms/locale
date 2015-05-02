@@ -8,7 +8,7 @@
  * @author    Dmitry Popov <d.popov@altgraphic.com>
  */
 
-namespace CmsLocale\EventListener;
+namespace CmsLocale\Event;
 
 use Locale,
     Zend\EventManager\AbstractListenerAggregate,
@@ -41,10 +41,10 @@ class DefaultLocaleListener extends AbstractListenerAggregate
     public function onBootstrap(MvcEvent $e)
     {
         $app = $e->getApplication();
-        $sm  = $app->getServiceManager();
+        $services = $app->getServiceManager();
 
-        $detector = $sm->get('CmsLocale\\Locale\\Detector');
-        $result   = $detector->detect($app->getRequest(), $app->getResponse());
+        $detector = $services->get('CmsLocale\\Locale\\Detector');
+        $result = $detector->detect($app->getRequest(), $app->getResponse());
 
         if ($result instanceof ResponseInterface) {
             /**
@@ -73,12 +73,24 @@ class DefaultLocaleListener extends AbstractListenerAggregate
                    ->setFallbackLocale(Locale::canonicalize($detector->getDefault()));
 
         $lang = Locale::getPrimaryLanguage($canonicalizedLocale);
-        $langBasePath = './vendor/zendframework/zendframework/resources/languages/' . $lang . '/';
+        $langBasePath = "./vendor/zendframework/zendframework/resources/languages/$lang/";
+
         if (file_exists($langBasePath . 'Zend_Validate.php')) {
-            $translator->addTranslationFile('phpArray', $langBasePath . 'Zend_Validate.php', 'default', $canonicalizedLocale);
+            $translator->addTranslationFile(
+                'phpArray',
+                $langBasePath . 'Zend_Validate.php',
+                'default',
+                $canonicalizedLocale
+            );
         }
+
         if (file_exists($langBasePath . 'Zend_Captcha.php')) {
-        	$translator->addTranslationFile('phpArray', $langBasePath . 'Zend_Captcha.php', 'default', $canonicalizedLocale);
+        	$translator->addTranslationFile(
+        	    'phpArray',
+        	    $langBasePath . 'Zend_Captcha.php',
+        	    'default',
+        	    $canonicalizedLocale
+        	);
         }
 
         AbstractValidator::setDefaultTranslator($translator);
