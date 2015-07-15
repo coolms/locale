@@ -14,8 +14,7 @@ use Locale,
     Zend\EventManager\AbstractListenerAggregate,
     Zend\EventManager\EventManagerInterface,
     Zend\Mvc\MvcEvent,
-    Zend\Stdlib\ResponseInterface,
-    Zend\Validator\AbstractValidator;
+    Zend\Stdlib\ResponseInterface;
 
 /**
  * Locale event listener
@@ -66,33 +65,5 @@ class DefaultLocaleListener extends AbstractListenerAggregate
 
         $canonicalizedLocale = Locale::canonicalize($result);
         Locale::setDefault($canonicalizedLocale);
-
-        // Setting up default MVC translator
-        $translator = $app->getServiceManager()->get('MvcTranslator');
-        $translator->setLocale($canonicalizedLocale)
-                   ->setFallbackLocale(Locale::canonicalize($detector->getDefault()));
-
-        $lang = Locale::getPrimaryLanguage($canonicalizedLocale);
-        $langBasePath = "./vendor/zendframework/zendframework/resources/languages/$lang/";
-
-        if (file_exists($langBasePath . 'Zend_Validate.php')) {
-            $translator->addTranslationFile(
-                'phpArray',
-                $langBasePath . 'Zend_Validate.php',
-                'default',
-                $canonicalizedLocale
-            );
-        }
-
-        if (file_exists($langBasePath . 'Zend_Captcha.php')) {
-        	$translator->addTranslationFile(
-        	    'phpArray',
-        	    $langBasePath . 'Zend_Captcha.php',
-        	    'default',
-        	    $canonicalizedLocale
-        	);
-        }
-
-        AbstractValidator::setDefaultTranslator($translator);
     }
 }

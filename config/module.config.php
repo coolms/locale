@@ -50,14 +50,20 @@ return [
         'aliases' => [
             'CmsLocale\Options\ModuleOptionsInterface' => 'CmsLocale\Options\ModuleOptions',
         ],
-        'invokables' => [
-            'CmsLocale\Event\DefaultLocaleListener' => 'CmsLocale\Event\DefaultLocaleListener',
-            'CmsLocale\Locale\Strategy\StrategyPluginManager'
-                => 'CmsLocale\Locale\Strategy\StrategyPluginManager',
+        'delegators' => [
+            'MvcTranslator' => [
+                'CmsLocale\Factory\MvcTranslatorDelegatorFactory'
+                    => 'CmsLocale\Factory\MvcTranslatorDelegatorFactory',
+            ],
         ],
         'factories'  => [
             'CmsLocale\Locale\Detector' => 'CmsLocale\Factory\DetectorFactory',
             'CmsLocale\Options\ModuleOptions' => 'CmsLocale\Factory\ModuleOptionsFactory',
+        ],
+        'invokables' => [
+            'CmsLocale\Event\DefaultLocaleListener' => 'CmsLocale\Event\DefaultLocaleListener',
+            'CmsLocale\Locale\Strategy\StrategyPluginManager'
+                => 'CmsLocale\Locale\Strategy\StrategyPluginManager',
         ],
     ],
     'translator' => [
