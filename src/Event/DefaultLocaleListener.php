@@ -13,6 +13,7 @@ namespace CmsLocale\Event;
 use Locale,
     Zend\EventManager\AbstractListenerAggregate,
     Zend\EventManager\EventManagerInterface,
+    Zend\Http\Request as HttpRequest,
     Zend\Mvc\MvcEvent,
     Zend\Stdlib\ResponseInterface;
 
@@ -39,6 +40,10 @@ class DefaultLocaleListener extends AbstractListenerAggregate
      */
     public function onBootstrap(MvcEvent $e)
     {
+        if (!$e->getRequest() instanceof HttpRequest) {
+            return;
+        }
+
         $app = $e->getApplication();
         $services = $app->getServiceManager();
 
