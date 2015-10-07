@@ -20,7 +20,7 @@ return [
         ],
     ],
     'listeners' => [
-        'CmsLocale\Event\DefaultLocaleListener' => 'CmsLocale\Event\DefaultLocaleListener',
+        'CmsLocale\Listener\DefaultLocaleListener' => 'CmsLocale\Listener\DefaultLocaleListener',
     ],
     'router' => [
         'routes' => [
@@ -61,7 +61,7 @@ return [
             'CmsLocale\Options\ModuleOptions' => 'CmsLocale\Factory\ModuleOptionsFactory',
         ],
         'invokables' => [
-            'CmsLocale\Event\DefaultLocaleListener' => 'CmsLocale\Event\DefaultLocaleListener',
+            'CmsLocale\Listener\DefaultLocaleListener' => 'CmsLocale\Listener\DefaultLocaleListener',
             'CmsLocale\Locale\Strategy\StrategyPluginManager'
                 => 'CmsLocale\Locale\Strategy\StrategyPluginManager',
         ],

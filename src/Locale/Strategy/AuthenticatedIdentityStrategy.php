@@ -85,8 +85,8 @@ class AuthenticatedIdentityStrategy extends AbstractStrategy implements ServiceL
         if (null === $this->authenticationService) {
             $strategies = $this->getServiceLocator();
             $parentLocator = $strategies->getServiceLocator();
-            if ($parentLocator->has('Zend\\Authentication\\AuthenticationServiceInterface')) {
-                $authenticationService = $parentLocator->get('Zend\\Authentication\\AuthenticationServiceInterface');
+            if ($parentLocator->has(AuthenticationServiceInterface::class)) {
+                $authenticationService = $parentLocator->get(AuthenticationServiceInterface::class);
                 $this->setAuthenticationService($authenticationService);
             }
         }

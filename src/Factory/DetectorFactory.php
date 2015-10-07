@@ -13,7 +13,9 @@ namespace CmsLocale\Factory;
 use Zend\ServiceManager\FactoryInterface,
     Zend\ServiceManager\ServiceLocatorInterface,
     CmsLocale\Factory\Exception\StrategyConfigurationException,
-    CmsLocale\Locale\Detector;
+    CmsLocale\Locale\Detector,
+    CmsLocale\Locale\Strategy\StrategyPluginManager,
+    CmsLocale\Options\ModuleOptions;
 
 class DetectorFactory implements FactoryInterface
 {
@@ -24,7 +26,7 @@ class DetectorFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $options \CmsLocale\Options\ModuleOptionsInterface */
-        $options = $serviceLocator->get('CmsLocale\\Options\\ModuleOptions');
+        $options = $serviceLocator->get(ModuleOptions::class);
 
         $detector = new Detector;
         $eventManager = $serviceLocator->get('EventManager');
@@ -51,7 +53,7 @@ class DetectorFactory implements FactoryInterface
      */
     protected function addAdapters(Detector $detector, array $strategies, ServiceLocatorInterface $serviceLocator)
     {
-        $plugins = $serviceLocator->get('CmsLocale\\Locale\\Strategy\\StrategyPluginManager');
+        $plugins = $serviceLocator->get(StrategyPluginManager::class);
 
         foreach ($strategies as $strategy) {
             if (is_string($strategy)) {

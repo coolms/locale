@@ -8,14 +8,15 @@
  * @author    Dmitry Popov <d.popov@altgraphic.com>
  */
 
-namespace CmsLocale\Event;
+namespace CmsLocale\Listener;
 
 use Locale,
     Zend\EventManager\AbstractListenerAggregate,
     Zend\EventManager\EventManagerInterface,
     Zend\Http\Request as HttpRequest,
     Zend\Mvc\MvcEvent,
-    Zend\Stdlib\ResponseInterface;
+    Zend\Stdlib\ResponseInterface,
+    CmsLocale\Locale\Detector;
 
 /**
  * Locale event listener
@@ -47,7 +48,7 @@ class DefaultLocaleListener extends AbstractListenerAggregate
         $app = $e->getApplication();
         $services = $app->getServiceManager();
 
-        $detector = $services->get('CmsLocale\\Locale\\Detector');
+        $detector = $services->get(Detector::class);
         $result = $detector->detect($app->getRequest(), $app->getResponse());
 
         if ($result instanceof ResponseInterface) {

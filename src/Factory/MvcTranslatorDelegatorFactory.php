@@ -1,8 +1,8 @@
 <?php
 /**
- * CoolMS2 Common Module (http://www.coolms.com/)
+ * CoolMS2 Locale Module (http://www.coolms.com/)
  *
- * @link      http://github.com/coolms/common for the canonical source repository
+ * @link      http://github.com/coolms/locale for the canonical source repository
  * @copyright Copyright (c) 2006-2015 Altgraphic, ALC (http://www.altgraphic.com)
  * @license   http://www.coolms.com/license/new-bsd New BSD License
  * @author    Dmitry Popov <d.popov@altgraphic.com>
@@ -13,7 +13,8 @@ namespace CmsLocale\Factory;
 use Locale,
     Zend\I18n\Translator\Resources,
     Zend\ServiceManager\DelegatorFactoryInterface,
-    Zend\ServiceManager\ServiceLocatorInterface;
+    Zend\ServiceManager\ServiceLocatorInterface,
+    CmsLocale\Locale\Detector;
 
 /**
  * @author Dmitry Popov <d.popov@altgraphic.com>
@@ -34,8 +35,8 @@ class MvcTranslatorDelegatorFactory implements DelegatorFactoryInterface
 
         $locale = Locale::getDefault();
 
-        /* @var $detector \CmsLocale\Locale\Detector */
-        $detector = $services->get('CmsLocale\\Locale\\Detector');
+        /* @var $detector Detector */
+        $detector = $services->get(Detector::class);
         $defaultLocale = Locale::canonicalize($detector->getDefault());
 
         $translator->setLocale($locale)
